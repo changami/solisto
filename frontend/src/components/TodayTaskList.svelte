@@ -1,5 +1,8 @@
-<script lang="ts"></script>
+<script lang="ts">
+  import FramedBox from './parts/FramedBox.svelte';
+</script>
 
 <div class="w-full">
-    Today's Task List
+    <FramedBox title="Today's Tasks">
+    </FramedBox>
 </div>
