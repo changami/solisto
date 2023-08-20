@@ -2,7 +2,8 @@ package main
 
 import (
 	"context"
-	"fmt"
+	"solisto/entities"
+	"solisto/repositories"
 )
 
 // App struct
@@ -21,7 +22,8 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-// Greet returns a greeting for the given name
-func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
+// GetAllTasks returns a list of all tasks
+func (a *App) GetAllTasks() []entities.Task {
+	taskRepository := repositories.NewTaskRepository()
+	return taskRepository.GetAll()
 }
