@@ -5,16 +5,15 @@ import (
 	"gorm.io/gorm"
 )
 
-var (
-	db *gorm.DB
-)
+type Database struct {
+	*gorm.DB
+}
 
-func init() {
-	var err error
-
+func NewDatabase() *Database {
 	dsn := "data.db"
-	db, err = gorm.Open(sqlite.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
 	}
+	return &Database{DB: db}
 }

@@ -1,39 +1,31 @@
 package repositories
 
 import (
-	"gorm.io/gorm"
 	"solisto/entities"
 )
 
-type ITaskRepository interface {
-	GetAll() []entities.Task
-	Add(entities.Task) (entities.Task, error)
-}
-
 type TaskRepository struct {
-	db *gorm.DB
+	Database *Database
 }
 
-func init() {
+func NewTaskRepository(db *Database) *TaskRepository {
 	err := db.AutoMigrate(&entities.Task{})
 	if err != nil {
 		panic("failed to migrate Task table")
 	}
-}
 
-func NewTaskRepository() ITaskRepository {
-	return &TaskRepository{db}
+	return &TaskRepository{Database: db}
 }
 
 func (r *TaskRepository) GetAll() []entities.Task {
 	var results []entities.Task
-	r.db.Find(&results)
+	r.Database.Find(&results)
 
 	return results
 }
 
 func (r *TaskRepository) Add(task entities.Task) (entities.Task, error) {
-	err := r.db.Create(&task).Error
+	err := r.Database.Create(&task).Error
 	if err != nil {
 		panic("failed to add task")
 	}

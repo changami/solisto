@@ -24,6 +24,6 @@ func (a *App) startup(ctx context.Context) {
 
 // GetAllTasks returns a list of all tasks
 func (a *App) GetAllTasks() []entities.Task {
-	taskRepository := repositories.NewTaskRepository()
+	taskRepository := repositories.NewTaskRepository(repositories.NewDatabase())
 	return taskRepository.GetAll()
 }
