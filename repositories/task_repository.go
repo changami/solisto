@@ -24,11 +24,6 @@ func (r *TaskRepository) GetAll() []entities.Task {
 	return results
 }
 
-func (r *TaskRepository) Add(task entities.Task) (entities.Task, error) {
-	err := r.Database.Create(&task).Error
-	if err != nil {
-		panic("failed to add task")
-	}
-
-	return task, err
+func (r *TaskRepository) Add(task entities.Task) error {
+	return r.Database.Create(&task).Error
 }
